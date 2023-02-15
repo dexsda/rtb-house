@@ -40,3 +40,8 @@
     apt:
       name: flake8
       state: latest
+  - name: Ensure docker deamon is running
+    service:
+      name: docker
+      state: started
+    become: yes
