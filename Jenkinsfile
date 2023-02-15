@@ -11,7 +11,7 @@ pipeline {
                 branch "master"
             }
             steps {
-                echo 'docker image'
+                sh 'docker-compose -f docker/docker-compose.yml build'
             }
         }
         stage('deploy docker image') {
@@ -19,7 +19,8 @@ pipeline {
                 branch "master"
             }
             steps {
-                echo 'deploy'
+                sh 'docker-compose -f docker/docker-compose.yml down -v'
+                sh 'docker-compose -f docker/docker-compose.yml up -d --force-recreate'
             }
         }
     }
