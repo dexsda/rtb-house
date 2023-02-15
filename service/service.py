@@ -14,7 +14,6 @@ JOKE_AMOUNT = 100
 def get_latest_date():
     req = requests.get("http://bash.org.pl/rss")
     soup = BeautifulSoup(req.content, 'html.parser')
-    print(soup.prettify())
     return str(soup.find("lastbuilddate").contents)
 
 
@@ -32,7 +31,10 @@ def parse_page(page):
     soup = BeautifulSoup(req.content, 'html.parser')
     for quote in soup.find_all("div", class_="q post"):
         jokes.append({
-            'id': '2',
+            'id': str(quote.find(
+                "a",
+                class_="qid click"
+            ).encode_contents()),
             'msg': str(quote.find(
                 "div",
                 class_="quote post-content post-body"

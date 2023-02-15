@@ -43,5 +43,6 @@
   - name: Ensure docker deamon is running
     service:
       name: docker
+      enabled: true
       state: started
     become: yes
