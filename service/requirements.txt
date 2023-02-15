@@ -1,3 +1,4 @@
 Flask
 Flask-Caching
 bs4
+requests
