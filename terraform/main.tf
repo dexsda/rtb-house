@@ -29,11 +29,8 @@ resource "google_compute_firewall" "default" {
   name    = "test-firewall"
   network = google_compute_network.vpc_network.name
   allow {
-    protocol = "icmp"
-  }
-  allow {
     protocol = "tcp"
     ports    = ["80", "5000", "22", "8080"]
   }
-  source_tags = ["web"]
+  source_ranges = ["0.0.0.0/0"]
 }
