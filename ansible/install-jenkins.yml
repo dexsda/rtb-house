@@ -1,0 +1,42 @@
+---
+- hosts: target
+  become: yes
+  become_user: root
+  tasks:
+  - name: download key
+    apt_key:
+      url: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
+      state: present
+    become: yes
+  - name: download repo
+    apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+    become: yes
+  - name: apt cache
+    apt:
+      update_cache: yes
+      state: latest
+  - name: install java
+    apt:
+      name: openjdk-11-jdk
+      state: present
+  - name: install jenkins
+    apt:
+      name: jenkins
+      state: latest
+  - name: start jenkins
+    service:
+      name: jenkins
+      enabled: true
+      state: started
+  - name: install docker
+    apt:
+      name: docker
+      state: latest
+  - name: install docker-compose
+    apt:
+      name: docker-compose
+      state: latest
+  - name: install flake8
+    apt:
+      name: flake8
+      state: latest
